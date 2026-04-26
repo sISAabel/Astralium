@@ -2,14 +2,19 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
+const eventsRoutes = require('./routes/events.routes');
+
 const app = express();
 
 app.use(cors());
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Astralium backend funcionando 🚀');
+  res.send('Backend funcionando 🚀');
 });
+
+app.use('/api/events', eventsRoutes);
 
 const PORT = process.env.PORT || 3000;
 
