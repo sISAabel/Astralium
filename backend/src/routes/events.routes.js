@@ -1,4 +1,5 @@
 const express = require('express');
+const validateEvent = require('../middlewares/validateEvent');
 
 const {
   getEvents,
@@ -14,9 +15,9 @@ router.get('/', getEvents);
 
 router.get('/:id', getEventById);
 
-router.post('/', createEvent);
+router.post('/', validateEvent, createEvent);
 
-router.put('/:id', updateEvent);
+router.put('/:id', validateEvent, updateEvent);
 
 router.delete('/:id', deleteEvent);
 

@@ -41,12 +41,6 @@ const getEventById = (req, res) => {
 const createEvent = (req, res) => {
   const { name, type, date, description, points } = req.body;
 
-  if (!name || !type || !date) {
-    return res.status(400).json({
-      message: 'Los campos name, type y date son obligatorios'
-    });
-  }
-
   const query = `
     INSERT INTO events (name, type, date, description, points)
     VALUES (?, ?, ?, ?, ?)
