@@ -75,8 +75,70 @@ const createEvent = (req, res) => {
   );
 };
 
+const updateEvent = (req, res) => {
+  const eventId = req.params.id;
+
+  const { name, type, date, description, points } = req.body;
+
+  const query = `
+    UPDATE events
+    SET name = ?, type = ?, date = ?, description = ?, points = ?
+    WHERE id = ?
+  `;
+
+  db.query(
+    query,
+    [name, type, date, description, points, eventId],
+    (error, result) => {
+      if (error) {
+        return res.status(500).json({
+          message: 'Error actualizando evento',
+          error
+        });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({
+          message: 'Evento no encontrado'
+        });
+      }
+
+      res.json({
+        message: 'Evento actualizado correctamente'
+      });
+    }
+  );
+};
+
+const deleteEvent = (req, res) => {
+  const eventId = req.params.id;
+
+  const query = 'DELETE FROM events WHERE id = ?';
+
+  db.query(query, [eventId], (error, result) => {
+    if (error) {
+      return res.status(500).json({
+        message: 'Error eliminando evento',
+        error
+      });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: 'Evento no encontrado'
+      });
+    }
+
+    res.json({
+      message: 'Evento eliminado correctamente'
+    });
+  });
+};
+
 module.exports = {
   getEvents,
   getEventById,
-  createEvent
+  createEvent,
+  updateEvent,
+  deleteEvent
 };
