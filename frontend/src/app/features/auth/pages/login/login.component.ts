@@ -1,7 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 import { AuthService } from '../../../../core/services/auth.service';
 
@@ -13,9 +13,11 @@ import { AuthService } from '../../../../core/services/auth.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
   email = '';
   password = '';
   errorMessage = '';
+  isLoading = false;
 
   constructor(
     private authService: AuthService,
@@ -23,13 +25,18 @@ export class LoginComponent {
   ) {}
 
   login(): void {
+    this.errorMessage = '';
+    this.isLoading = true;
+
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
         this.authService.saveToken(response.token);
+        this.isLoading = false;
         this.router.navigate(['/']);
       },
       error: () => {
         this.errorMessage = 'Email o contraseña incorrectos';
+        this.isLoading = false;
       }
     });
   }
