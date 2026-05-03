@@ -2,7 +2,19 @@
   <h1>Astralium</h1>
 
   <div class="links">
+
     <a routerLink="/">Eventos</a>
-    <a routerLink="/login">Login</a>
+
+    <a *ngIf="!authService.isAuthenticated()" routerLink="/login">
+      Login
+    </a>
+
+    <button
+      *ngIf="authService.isAuthenticated()"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+
   </div>
 </nav>

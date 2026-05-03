@@ -3,14 +3,14 @@ import { inject } from '@angular/core';
 
 import { AuthService } from '../services/auth.service';
 
-export const authGuard: CanActivateFn = () => {
+export const publicGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isAuthenticated()) {
+  if (!authService.isAuthenticated()) {
     return true;
   }
 
-  router.navigate(['/login']);
+  router.navigate(['/']);
   return false;
 };
