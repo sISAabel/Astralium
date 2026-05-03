@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const eventsRoutes = require('./routes/events.routes');
 const usersRoutes = require('./routes/users.routes');
+const userEventsRoutes = require('./routes/userEvents.routes');
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.get('/', (req, res) => {
 app.use('/api/events', eventsRoutes);
 
 app.use('/api/users', usersRoutes);
+
+app.use('/api/user-events', userEventsRoutes);
 
 const PORT = process.env.PORT || 3000;
 
