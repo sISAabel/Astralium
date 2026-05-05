@@ -1,0 +1,47 @@
+<section class="event-detail-page">
+  <p *ngIf="isLoading">Cargando evento...</p>
+
+  <p class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </p>
+
+  <p class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </p>
+
+  <article class="event-detail-card" *ngIf="event">
+    <h2>{{ event.name }}</h2>
+
+    <p><strong>Tipo:</strong> {{ event.type }}</p>
+    <p>
+      <strong>Fecha:</strong>
+      {{ event.date | date: "dd MMM yyyy" }}
+    </p>
+
+    <p>
+      <strong>Descripción:</strong>
+      {{ event.description || "Sin descripción" }}
+    </p>
+
+    <p><strong>Puntos:</strong> {{ event.points }}</p>
+
+    <div class="event-detail-actions">
+      <button
+        class="btn-primary"
+        type="button"
+        (click)="confirmAttendance()"
+        [disabled]="attendanceLoading || hasAttended"
+      >
+        {{
+          attendanceLoading
+            ? "Confirmando..."
+            : hasAttended
+              ? "Asistencia confirmada"
+              : "Confirmar asistencia"
+        }}
+      </button>
+
+      <a routerLink="/events" class="btn-secondary"> Volver a eventos </a>
+    </div>
+  </article>
+</section>

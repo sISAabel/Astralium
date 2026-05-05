@@ -1,0 +1,66 @@
+
+<section class="events-page">
+  <h2>Eventos astronómicos</h2>
+
+  <p *ngIf="isLoading">Cargando eventos...</p>
+
+  <p class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </p>
+
+  <div class="events-filters">
+    <input
+      type="text"
+      placeholder="&#xf002; Buscar por nombre..."
+      [(ngModel)]="searchTerm"
+    />
+
+    <select [(ngModel)]="selectedType">
+      <option value="">Todos los tipos</option>
+      <option *ngFor="let type of eventTypes" [value]="type">
+        {{ type }}
+      </option>
+    </select>
+
+    <button
+      type="button"
+      class="clear-filters-btn"
+      title="Borrar filtros"
+      (click)="clearFilters()"
+    >
+      <i class="fa-solid fa-trash"></i>
+    </button>
+  </div>
+  <p *ngIf="!isLoading && filteredEvents.length === 0 && !errorMessage">
+    No hay eventos que coincidan con los filtros.
+  </p>
+
+  <div class="events-grid" *ngIf="!isLoading && filteredEvents.length > 0">
+    <article class="event-card" *ngFor="let event of filteredEvents">
+      <h3>{{ event.name }}</h3>
+
+      <p>
+        <strong>Fecha:</strong>
+        {{ event.date | date: "dd MMM yyyy" }}
+      </p>
+
+      <p>
+        <strong>Visibilidad:</strong>
+        {{ event.visibility }}
+      </p>
+
+      <p>
+        <strong>Puntos:</strong>
+        {{ event.points }}
+      </p>
+
+      <button class="btn-primary" [routerLink]="['/events', event.id]">
+        Ver detalle
+      </button>
+    </article>
+  </div>
+
+  <p *ngIf="!isLoading && events.length === 0 && !errorMessage">
+    No hay eventos disponibles.
+  </p>
+</section>
