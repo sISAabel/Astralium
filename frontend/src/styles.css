@@ -1,1 +1,146 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-bg-primary: #020617;
+  --color-bg-secondary: #0f172a;
+  --color-surface: rgba(15, 23, 42, 0.84);
+  --color-surface-soft: rgba(30, 41, 59, 0.72);
+  --color-border: rgba(148, 163, 184, 0.25);
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+
+  --color-accent-blue: #38bdf8;
+  --color-accent-purple: #7c3aed;
+  --color-accent-soft: #e0f2fe;
+
+  --color-error: #fca5a5;
+  --color-success: #86efac;
+
+  --shadow-card: 0 1.5rem 5rem rgba(0, 0, 0, 0.45);
+
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text-primary);
+
+  background:
+    radial-gradient(circle at top left, rgba(124, 58, 237, 0.25), transparent 35%),
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 30%),
+    linear-gradient(135deg, var(--color-bg-primary), var(--color-bg-secondary));
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+.btn-primary {
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--color-text-primary);
+
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-blue),
+    var(--color-accent-purple)
+  );
+
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    0 0 10px rgba(0, 191, 255, 0.6),
+    0 0 20px rgba(138, 43, 226, 0.5),
+    0 0 30px rgba(0, 191, 255, 0.4);
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: all 0.5s ease;
+}
+.btn-primary:active {
+  transform: scale(0.97);
+  box-shadow: none;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+a.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  border: 0.0625rem solid var(--color-border);
+  background: var(--color-surface-soft);
+  color: var(--color-accent-blue);
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+a.btn-secondary:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-accent-blue);
+  box-shadow: 0 0 8px rgba(0, 191, 255, 0.25);
+}
+
+a.btn-secondary:active {
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+@media (max-width: 48rem) {
+  :root {
+    --space-xl: 1.25rem;
+    --space-lg: 1rem;
+  }
+}

@@ -1,0 +1,43 @@
+.event-detail-page {
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.event-detail-card {
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+
+  background: var(--color-surface);
+  border: 0.0625rem solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.event-detail-card h2 {
+  margin-top: 0;
+  color: var(--color-accent-soft);
+}
+
+.event-detail-card p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.event-detail-card strong {
+  color: var(--color-text-primary);
+}
+
+.event-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.success {
+  color: var(--color-success);
+}
+
+.error {
+  color: var(--color-error);
+}

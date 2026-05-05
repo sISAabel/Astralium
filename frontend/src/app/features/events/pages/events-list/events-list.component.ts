@@ -1,11 +1,74 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+import { EventsService } from '../../../../core/services/events.service';
+import { Event } from '../../../../core/models/event.model';
 
 @Component({
   selector: 'app-events-list',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './events-list.component.html',
-  styleUrl: './events-list.component.css'
+  styleUrl: './events-list.component.css',
 })
-export class EventsListComponent {
+export class EventsListComponent implements OnInit {
+  events: Event[] = [];
+  isLoading = false;
+  errorMessage = '';
+  searchTerm = '';
+  selectedType = '';
+  selectedDate = '';
+  clearFilters(): void {
+    this.searchTerm = '';
+    this.selectedType = '';
+    this.selectedDate = '';
+  }
 
+  constructor(private eventsService: EventsService) {}
+
+  ngOnInit(): void {
+    this.loadEvents();
+  }
+
+  loadEvents(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.eventsService.getEvents().subscribe({
+      next: (events) => {
+        this.events = events;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.errorMessage = 'No se pudieron cargar los eventos';
+        this.isLoading = false;
+      },
+    });
+  }
+
+  get eventTypes(): string[] {
+    return [...new Set(this.events.map((event) => event.type))];
+  }
+
+  get filteredEvents(): Event[] {
+    return this.events.filter((event) => {
+      const matchesName = event.name
+        .toLowerCase()
+        .includes(this.searchTerm.toLowerCase());
+
+      const matchesType = this.selectedType
+        ? event.type === this.selectedType
+        : true;
+
+      const eventDate = new Date(event.date).toISOString().split('T')[0];
+
+      const matchesDate = this.selectedDate
+        ? eventDate === this.selectedDate
+        : true;
+
+      return matchesName && matchesType && matchesDate;
+    });
+  }
 }
