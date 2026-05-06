@@ -43,22 +43,23 @@ Users can create an account, log in, and track their participation in events, wi
 ---
 
 ## 📁 Project Structure
+<pre>
 astralium/
 │
 ├── backend/
-│ ├── config/
-│ ├── controllers/
-│ ├── routes/
-│ ├── middlewares/
-│ └── app.js
+│   ├── config/
+│   ├── controllers/
+│   ├── routes/
+│   ├── middlewares/
+│   └── app.js
 │
 ├── frontend/
-│ ├── src/
-│ ├── app/
-│ └── angular.json
+│   ├── src/
+│   ├── app/
+│   └── angular.json
 │
 └── README.md
-
+</pre>
 ---
 
 ## ⚙️ Installation
@@ -120,17 +121,17 @@ Authorization: Bearer YOUR_TOKEN
 
 ## 📡 API Endpoints
 
-- Events
-  -- GET /api/events → Get all events
-  -- GET /api/events/:id → Get event details
-  -- POST /api/events → Create event
+### Events
+- GET /api/events → Get all events
+- GET /api/events/:id → Get event details
+- POST /api/events → Create event
 
-- Users
-  -- POST /api/users/register → Register
-  -- POST /api/users/login → Login
+### Users
+- POST /api/users/register → Register
+- POST /api/users/login → Login
 
-- Attendance
-  -- POST /api/events/attend → Attend event
+### Attendance
+- POST /api/events/attend → Attend event
 
 ---
 
