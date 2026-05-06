@@ -40,6 +40,11 @@
   color: var(--color-accent-blue);
 }
 
+.points {
+  color: var(--color-accent-blue);
+  font-weight: bold;
+}
+
 @media (max-width: 36rem) {
   .navbar {
     flex-direction: column;
