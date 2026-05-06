@@ -4,8 +4,9 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { EventsService } from '../../../../core/services/events.service';
 import { AttendanceService } from '../../../../core/services/attendance.service';
-import { Event } from '../../../../core/models/event.model';
 import { AuthService } from '../../../../core/services/auth.service';
+
+import { Event } from '../../../../core/models/event.model';
 
 @Component({
   selector: 'app-event-detail',
@@ -15,34 +16,35 @@ import { AuthService } from '../../../../core/services/auth.service';
   styleUrl: './event-detail.component.css',
 })
 export class EventDetailComponent implements OnInit {
-  event?: Event;
+  event: Event | null = null;
 
   isLoading = false;
   attendanceLoading = false;
 
-  errorMessage = '';
   successMessage = '';
+  errorMessage = '';
 
   hasAttended = false;
+
+  showAttendanceModal = false;
 
   constructor(
     private route: ActivatedRoute,
     private eventsService: EventsService,
     private attendanceService: AttendanceService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
-    const eventId = Number(this.route.snapshot.paramMap.get('id'));
+    const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (eventId) {
-      this.loadEvent(eventId);
+    if (id) {
+      this.loadEvent(id);
     }
   }
 
   loadEvent(id: number): void {
     this.isLoading = true;
-    this.errorMessage = '';
 
     this.eventsService.getEventById(id).subscribe({
       next: (event) => {
@@ -60,8 +62,8 @@ export class EventDetailComponent implements OnInit {
     if (!this.event) return;
 
     this.attendanceLoading = true;
-    this.errorMessage = '';
     this.successMessage = '';
+    this.errorMessage = '';
 
     this.attendanceService.attendEvent(this.event.id).subscribe({
       next: (response: any) => {
@@ -70,27 +72,38 @@ export class EventDetailComponent implements OnInit {
 
         this.hasAttended = true;
 
-        const currentPoints = Number(localStorage.getItem('userPoints')) || 0;
+        const currentPoints =
+          Number(localStorage.getItem('userPoints')) || 0;
+
         const eventPoints = this.event?.points || 0;
 
         this.authService.setUserPoints(currentPoints + eventPoints);
 
+        this.showAttendanceModal = true;
+
         this.attendanceLoading = false;
       },
-      error: (error) => {
-        const message =
-          error.error?.message || 'No se pudo confirmar la asistencia';
 
-        if (message.includes('ya asistió')) {
+      error: (error) => {
+        if (
+          error.error?.message ===
+          'El usuario ya asistió a este evento'
+        ) {
           this.hasAttended = true;
-          this.successMessage = 'Ya asististe a este evento';
-          this.errorMessage = '';
+          this.successMessage =
+            'Ya tienes asistencia confirmada para este evento';
         } else {
-          this.errorMessage = message;
+          this.errorMessage =
+            error.error?.message ||
+            'No se pudo confirmar la asistencia';
         }
 
         this.attendanceLoading = false;
       },
     });
+  }
+
+  closeAttendanceModal(): void {
+    this.showAttendanceModal = false;
   }
 }

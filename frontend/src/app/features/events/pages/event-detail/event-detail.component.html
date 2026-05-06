@@ -1,47 +1,88 @@
-<section class="event-detail-page">
-  <p *ngIf="isLoading">Cargando evento...</p>
-
-  <p class="error" *ngIf="errorMessage">
-    {{ errorMessage }}
-  </p>
-
-  <p class="success" *ngIf="successMessage">
+<section class="event-detail-page" *ngIf="event">
+  <p class="success-message" *ngIf="successMessage">
     {{ successMessage }}
   </p>
 
-  <article class="event-detail-card" *ngIf="event">
-    <h2>{{ event.name }}</h2>
+  <p class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </p>
 
-    <p><strong>Tipo:</strong> {{ event.type }}</p>
+  <article class="event-detail-card">
+    <h1>{{ event.name }}</h1>
+
+    <p>
+      <strong>Tipo:</strong>
+      {{ event.type }}
+    </p>
+
     <p>
       <strong>Fecha:</strong>
-      {{ event.date | date: "dd MMM yyyy" }}
+      {{ event.date | date : 'dd MMM yyyy' }}
     </p>
 
     <p>
       <strong>Descripción:</strong>
-      {{ event.description || "Sin descripción" }}
+      {{ event.description || 'Sin descripción' }}
     </p>
 
-    <p><strong>Puntos:</strong> {{ event.points }}</p>
+    <p>
+      <strong>Puntos:</strong>
+      {{ event.points }}
+    </p>
 
     <div class="event-detail-actions">
       <button
-        class="btn-primary"
         type="button"
         (click)="confirmAttendance()"
         [disabled]="attendanceLoading || hasAttended"
       >
-        {{
-          attendanceLoading
-            ? "Confirmando..."
-            : hasAttended
-              ? "Asistencia confirmada"
-              : "Confirmar asistencia"
-        }}
+        <span *ngIf="attendanceLoading">
+          Confirmando...
+        </span>
+
+        <span *ngIf="!attendanceLoading && !hasAttended">
+          Confirmar asistencia
+        </span>
+
+        <span *ngIf="hasAttended">
+          Asistencia confirmada
+        </span>
       </button>
 
-      <a routerLink="/events" class="btn-secondary"> Volver a eventos </a>
+      <a routerLink="/">
+        Volver a eventos
+      </a>
     </div>
   </article>
 </section>
+
+<div
+  class="modal-backdrop"
+  *ngIf="showAttendanceModal"
+>
+  <div class="attendance-modal">
+    <div class="particles">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <h2>¡Asistencia confirmada!</h2>
+
+    <p>
+      Has ganado
+      <strong>{{ event?.points }} puntos estelares</strong>
+      por asistir a este evento.
+    </p>
+
+    <button
+      type="button"
+      (click)="closeAttendanceModal()"
+    >
+      Continuar explorando
+    </button>
+  </div>
+</div>

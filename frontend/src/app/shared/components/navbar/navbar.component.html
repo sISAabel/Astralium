@@ -1,17 +1,13 @@
 <nav class="navbar">
   <h1>Astralium</h1>
 
-  <div class="links">
-    <a routerLink="/">Eventos</a>
-
-    <span *ngIf="authService.isAuthenticated()" class="points">
+  <div class="navbar-right">
+    <span class="points" *ngIf="authService.isAuthenticated()">
       ⭐ {{ userPoints }} pts
     </span>
 
-    <a *ngIf="!authService.isAuthenticated()" routerLink="/login"> Login </a>
-
-    <button *ngIf="authService.isAuthenticated()" (click)="logout()">
-      Logout
+    <button class="logout-btn" (click)="logout()" title="Cerrar sesión">
+      <i class="fa-solid fa-right-from-bracket"></i>
     </button>
   </div>
 </nav>
