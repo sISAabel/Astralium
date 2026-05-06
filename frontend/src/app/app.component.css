@@ -1,4 +1,3 @@
-.main-content {
-  min-height: calc(100vh - 4.375rem);
-  padding: var(--space-xl);
+.app-layout {
+  min-height: 100vh;
 }
