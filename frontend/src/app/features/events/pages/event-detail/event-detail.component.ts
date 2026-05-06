@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EventsService } from '../../../../core/services/events.service';
 import { AttendanceService } from '../../../../core/services/attendance.service';
 import { Event } from '../../../../core/models/event.model';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -28,6 +29,7 @@ export class EventDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private eventsService: EventsService,
     private attendanceService: AttendanceService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +69,12 @@ export class EventDetailComponent implements OnInit {
           response.message || 'Asistencia confirmada correctamente';
 
         this.hasAttended = true;
+
+        const currentPoints = Number(localStorage.getItem('userPoints')) || 0;
+        const eventPoints = this.event?.points || 0;
+
+        this.authService.setUserPoints(currentPoints + eventPoints);
+
         this.attendanceLoading = false;
       },
       error: (error) => {
@@ -75,8 +83,7 @@ export class EventDetailComponent implements OnInit {
 
         if (message.includes('ya asistió')) {
           this.hasAttended = true;
-          this.successMessage =
-            'Ya asististe a este evento';
+          this.successMessage = 'Ya asististe a este evento';
           this.errorMessage = '';
         } else {
           this.errorMessage = message;
