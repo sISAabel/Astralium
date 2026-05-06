@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { EventsService } from '../../../../core/services/events.service';
+import { AttendanceService } from '../../../../core/services/attendance.service';
 import { Event } from '../../../../core/models/event.model';
 
 @Component({
@@ -15,21 +16,26 @@ import { Event } from '../../../../core/models/event.model';
 })
 export class EventsListComponent implements OnInit {
   events: Event[] = [];
+  attendedEventIds: number[] = [];
+
   isLoading = false;
   errorMessage = '';
+
+  username = '';
+
   searchTerm = '';
   selectedType = '';
   selectedDate = '';
-  clearFilters(): void {
-    this.searchTerm = '';
-    this.selectedType = '';
-    this.selectedDate = '';
-  }
 
-  constructor(private eventsService: EventsService) {}
+  constructor(
+    private eventsService: EventsService,
+    private attendanceService: AttendanceService,
+  ) {}
 
   ngOnInit(): void {
+    this.username = localStorage.getItem('username') || '';
     this.loadEvents();
+    this.loadAttendedEvents();
   }
 
   loadEvents(): void {
@@ -46,6 +52,27 @@ export class EventsListComponent implements OnInit {
         this.isLoading = false;
       },
     });
+  }
+
+  loadAttendedEvents(): void {
+    this.attendanceService.getUserEvents().subscribe({
+      next: (ids) => {
+        this.attendedEventIds = ids;
+      },
+      error: () => {
+        console.error('Error cargando eventos asistidos');
+      },
+    });
+  }
+
+  hasAttended(eventId: number): boolean {
+    return this.attendedEventIds.includes(eventId);
+  }
+
+  clearFilters(): void {
+    this.searchTerm = '';
+    this.selectedType = '';
+    this.selectedDate = '';
   }
 
   get eventTypes(): string[] {

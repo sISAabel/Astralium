@@ -1,6 +1,9 @@
-
 <section class="events-page">
-  <h2>Eventos astronómicos</h2>
+  <section class="events-hero" *ngIf="username">
+    <h1>Hola {{ username }}!</h1>
+
+    <p>¿A qué evento astronómico quieres ir hoy?</p>
+  </section>
 
   <p *ngIf="isLoading">Cargando eventos...</p>
 
@@ -37,6 +40,9 @@
 
   <div class="events-grid" *ngIf="!isLoading && filteredEvents.length > 0">
     <article class="event-card" *ngFor="let event of filteredEvents">
+      <span class="attended-badge" *ngIf="attendedEventIds.includes(event.id)">
+        <i class="fa-solid fa-check"></i>
+      </span>
       <h3>{{ event.name }}</h3>
 
       <p>

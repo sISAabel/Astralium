@@ -5,12 +5,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-md);
 
   background: rgba(2, 6, 23, 0.85);
   backdrop-filter: blur(0.75rem);
   border-bottom: 0.0625rem solid var(--color-border);
 }
+
+/* ---------- BRAND ---------- */
 
 .navbar h1 {
   margin: 0;
@@ -19,40 +20,53 @@
   color: var(--color-accent-soft);
 }
 
-.links {
+/* ---------- RIGHT SIDE ---------- */
+
+.navbar-right {
   display: flex;
   align-items: center;
   gap: var(--space-md);
 }
 
-.links a,
-.links button {
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.links a:hover,
-.links button:hover {
-  color: var(--color-accent-blue);
-}
+/* ---------- USER INFO ---------- */
 
 .points {
   color: var(--color-accent-blue);
-  font-weight: bold;
+  font-weight: 500;
+  text-shadow: 0 0 0.75rem rgba(56, 189, 248, 0.25);
 }
+
+/* ---------- LOGOUT ---------- */
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  color: var(--color-text-primary);
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+}
+
+.logout-btn:hover {
+  color: var(--color-error);
+}
+
+/* ---------- RESPONSIVE ---------- */
 
 @media (max-width: 36rem) {
   .navbar {
     flex-direction: column;
     align-items: flex-start;
     padding: var(--space-md) var(--space-xl);
+    gap: var(--space-sm);
   }
 
-  .links {
+  .navbar-right {
     width: 100%;
     justify-content: space-between;
   }

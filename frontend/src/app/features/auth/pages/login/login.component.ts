@@ -32,6 +32,7 @@ export class LoginComponent {
         this.authService.saveToken(response.token);
         localStorage.setItem('userId', response.user.id);
         this.authService.setUserPoints(response.user.points);
+        this.authService.setUserData(response.user);
 
         this.isLoading = false;
         this.router.navigate(['/']);

@@ -14,9 +14,13 @@ export class AttendanceService {
 
   constructor(private http: HttpClient) {}
 
-  attendEvent(eventId: number) {
+  attendEvent(eventId: number): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${this.apiUrl}/attend`, {
       eventId,
     });
+  }
+
+  getUserEvents(): Observable<number[]> {
+    return this.http.get<number[]>(this.apiUrl);
   }
 }
