@@ -1,66 +1,69 @@
-<section class="event-detail-page" *ngIf="event">
-  <p class="success-message" *ngIf="successMessage">
+<section class="event-detail-page page-shell" *ngIf="event">
+  <p class="success-message glass-card" *ngIf="successMessage">
     {{ successMessage }}
   </p>
 
-  <p class="error-message" *ngIf="errorMessage">
+  <p class="error-message glass-card" *ngIf="errorMessage">
     {{ errorMessage }}
   </p>
 
-  <article class="event-detail-card">
-    <h1>{{ event.name }}</h1>
+  <article class="event-detail-card glass-card">
+    <div class="event-detail-visual">
+      <div class="event-planet"></div>
+    </div>
 
-    <p>
-      <strong>Tipo:</strong>
-      {{ event.type }}
-    </p>
+    <div class="event-detail-content">
+      <span class="badge">{{ event.type }}</span>
 
-    <p>
-      <strong>Fecha:</strong>
-      {{ event.date | date : 'dd MMM yyyy' }}
-    </p>
+      <h1>{{ event.name }}</h1>
 
-    <p>
-      <strong>Descripción:</strong>
-      {{ event.description || 'Sin descripción' }}
-    </p>
+      <div class="event-info-grid">
+        <div class="event-info-item">
+          <i class="fa-regular fa-calendar"></i>
+          <div>
+            <strong>Fecha</strong>
+            <span>{{ event.date | date : 'dd MMM yyyy' }}</span>
+          </div>
+        </div>
 
-    <p>
-      <strong>Puntos:</strong>
-      {{ event.points }}
-    </p>
+        <div class="event-info-item">
+          <i class="fa-solid fa-star"></i>
+          <div>
+            <strong>Puntos</strong>
+            <span>{{ event.points }} pts</span>
+          </div>
+        </div>
+      </div>
 
-    <div class="event-detail-actions">
-      <button
-        type="button"
-        (click)="confirmAttendance()"
-        [disabled]="attendanceLoading || hasAttended"
-      >
-        <span *ngIf="attendanceLoading">
-          Confirmando...
-        </span>
+      <div class="event-description">
+        <strong>Descripción</strong>
+        <p>{{ event.description || 'Sin descripción' }}</p>
+      </div>
 
-        <span *ngIf="!attendanceLoading && !hasAttended">
-          Confirmar asistencia
-        </span>
+      <div class="event-detail-actions">
+        <button
+          type="button"
+          class="btn-primary"
+          (click)="confirmAttendance()"
+          [disabled]="attendanceLoading || hasAttended"
+        >
+          <span *ngIf="attendanceLoading">Confirmando...</span>
+          <span *ngIf="!attendanceLoading && !hasAttended">
+            Confirmar asistencia
+          </span>
+          <span *ngIf="hasAttended">Asistencia confirmada</span>
+        </button>
 
-        <span *ngIf="hasAttended">
-          Asistencia confirmada
-        </span>
-      </button>
-
-      <a routerLink="/">
-        Volver a eventos
-      </a>
+        <a class="btn-secondary" routerLink="/">
+          Volver a eventos
+        </a>
+      </div>
     </div>
   </article>
 </section>
 
-<div
-  class="modal-backdrop"
-  *ngIf="showAttendanceModal"
->
-  <div class="attendance-modal">
+<div class="modal-backdrop" *ngIf="showAttendanceModal">
+  <div class="attendance-modal glass-card">
     <div class="particles">
       <span></span>
       <span></span>
@@ -68,6 +71,10 @@
       <span></span>
       <span></span>
       <span></span>
+    </div>
+
+    <div class="modal-icon">
+      <i class="fa-solid fa-meteor"></i>
     </div>
 
     <h2>¡Asistencia confirmada!</h2>
@@ -78,10 +85,7 @@
       por asistir a este evento.
     </p>
 
-    <button
-      type="button"
-      (click)="closeAttendanceModal()"
-    >
+    <button type="button" class="btn-primary" (click)="closeAttendanceModal()">
       Continuar explorando
     </button>
   </div>
