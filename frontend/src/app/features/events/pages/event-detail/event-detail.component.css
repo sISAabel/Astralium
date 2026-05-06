@@ -6,21 +6,25 @@
 
 .event-detail-card {
   padding: var(--space-xl);
+
   border-radius: var(--radius-lg);
+  border: 0.0625rem solid var(--color-border);
 
   background: var(--color-surface);
-  border: 0.0625rem solid var(--color-border);
   box-shadow: var(--shadow-card);
 }
 
-.event-detail-card h2 {
+.event-detail-card h1 {
   margin-top: 0;
-  color: var(--color-accent-soft);
+  margin-bottom: var(--space-lg);
+
+  color: var(--color-text-primary);
+  font-size: 2rem;
 }
 
 .event-detail-card p {
+  margin-bottom: var(--space-md);
   color: var(--color-text-secondary);
-  line-height: 1.6;
 }
 
 .event-detail-card strong {
@@ -31,13 +35,232 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-md);
-  margin-top: var(--space-lg);
+
+  margin-top: var(--space-xl);
 }
 
-.success {
-  color: var(--color-success);
+.event-detail-actions button,
+.event-detail-actions a {
+  padding: var(--space-sm) var(--space-lg);
+
+  border-radius: var(--radius-sm);
+  border: none;
+
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 700;
 }
 
-.error {
+.event-detail-actions button {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-blue),
+    var(--color-accent-purple)
+  );
+
+  color: var(--color-text-primary);
+}
+
+.event-detail-actions button:hover {
+  opacity: 0.92;
+}
+
+.event-detail-actions button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.event-detail-actions a {
+  background: var(--color-surface);
+  border: 0.0625rem solid var(--color-border);
+
+  color: var(--color-accent-blue);
+}
+
+.event-detail-actions a:hover {
+  border-color: var(--color-accent-blue);
+  box-shadow: 0 0 1rem rgba(56, 189, 248, 0.18);
+}
+
+.success-message {
+  margin-bottom: var(--space-lg);
+  color: #4ade80;
+  font-weight: 700;
+}
+
+.error-message {
+  margin-bottom: var(--space-lg);
   color: var(--color-error);
+  font-weight: 700;
+}
+
+/* ---------- MODAL ---------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(2, 6, 23, 0.78);
+  backdrop-filter: blur(0.5rem);
+
+  animation: fadeIn 0.25s ease;
+}
+
+.attendance-modal {
+  position: relative;
+
+  width: 90%;
+  max-width: 28rem;
+
+  padding: var(--space-xl);
+
+  overflow: hidden;
+
+  border-radius: var(--radius-lg);
+  border: 0.0625rem solid rgba(56, 189, 248, 0.35);
+
+  background:
+    radial-gradient(circle at top, rgba(124, 58, 237, 0.28), transparent 45%),
+    var(--color-surface);
+
+  box-shadow:
+    var(--shadow-card),
+    0 0 2rem rgba(56, 189, 248, 0.2);
+
+  text-align: center;
+
+  animation: modalPop 0.35s ease;
+}
+
+.attendance-modal h2 {
+  margin-top: 0;
+
+  color: var(--color-accent-soft);
+  font-size: 1.8rem;
+}
+
+.attendance-modal p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.attendance-modal strong {
+  color: var(--color-accent-blue);
+}
+
+.attendance-modal button {
+  margin-top: var(--space-lg);
+  padding: var(--space-sm) var(--space-lg);
+
+  border: none;
+  border-radius: var(--radius-sm);
+
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-blue),
+    var(--color-accent-purple)
+  );
+
+  color: var(--color-text-primary);
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.attendance-modal button:hover {
+  opacity: 0.92;
+}
+
+/* ---------- PARTICLES ---------- */
+
+.particles span {
+  position: absolute;
+
+  width: 0.35rem;
+  height: 0.35rem;
+
+  border-radius: 50%;
+
+  background: var(--color-accent-blue);
+  box-shadow: 0 0 0.75rem var(--color-accent-blue);
+
+  animation: floatParticle 3s ease-in-out infinite;
+}
+
+.particles span:nth-child(1) {
+  top: 18%;
+  left: 18%;
+  animation-delay: 0s;
+}
+
+.particles span:nth-child(2) {
+  top: 28%;
+  right: 16%;
+  animation-delay: 0.4s;
+}
+
+.particles span:nth-child(3) {
+  bottom: 24%;
+  left: 22%;
+  animation-delay: 0.8s;
+}
+
+.particles span:nth-child(4) {
+  bottom: 20%;
+  right: 24%;
+  animation-delay: 1.2s;
+}
+
+.particles span:nth-child(5) {
+  top: 50%;
+  left: 10%;
+  animation-delay: 1.6s;
+}
+
+.particles span:nth-child(6) {
+  top: 55%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+/* ---------- ANIMATIONS ---------- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes floatParticle {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: translateY(-1rem) scale(1.4);
+    opacity: 1;
+  }
 }
