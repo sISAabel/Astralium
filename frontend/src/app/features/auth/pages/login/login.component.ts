@@ -10,10 +10,9 @@ import { AuthService } from '../../../../core/services/auth.service';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
-
   email = '';
   password = '';
   errorMessage = '';
@@ -21,7 +20,7 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   login(): void {
@@ -29,15 +28,19 @@ export class LoginComponent {
     this.isLoading = true;
 
     this.authService.login(this.email, this.password).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         this.authService.saveToken(response.token);
+        localStorage.setItem('userId', response.user.id);
+        this.authService.setUserPoints(response.user.points);
+
         this.isLoading = false;
         this.router.navigate(['/']);
       },
+
       error: () => {
         this.errorMessage = 'Email o contraseña incorrectos';
         this.isLoading = false;
-      }
+      },
     });
   }
 }

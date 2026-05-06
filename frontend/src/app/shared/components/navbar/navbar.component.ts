@@ -9,14 +9,21 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-
   constructor(
     public authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
+
+  userPoints = 0;
+
+  ngOnInit(): void {
+    this.authService.userPoints$.subscribe((points) => {
+      this.userPoints = points;
+    });
+  }
 
   logout(): void {
     this.authService.logout();
