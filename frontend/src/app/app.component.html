@@ -1,5 +1,7 @@
-<app-navbar></app-navbar>
+@if (!isWelcomePage()) {
+  <app-navbar></app-navbar>
+}
 
-<main class="app-layout">
+<main>
   <router-outlet></router-outlet>
 </main>
