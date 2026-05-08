@@ -11,36 +11,22 @@
 .event-detail-visual {
   position: relative;
   min-height: 32rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background:
-    radial-gradient(circle at 35% 30%, rgba(93, 220, 255, 0.24), transparent 24%),
-    radial-gradient(circle at 65% 65%, rgba(255, 122, 217, 0.18), transparent 28%),
-    linear-gradient(145deg, rgba(9, 13, 31, 0.4), rgba(4, 6, 16, 0.96));
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
   border-right: 0.0625rem solid var(--border-glass);
 }
 
-.event-detail-visual::before {
-  content: "";
+.event-detail-overlay {
   position: absolute;
-  width: 17rem;
-  height: 17rem;
-  border: 0.08rem solid rgba(255, 255, 255, 0.22);
-  border-radius: 50%;
-  transform: rotate(-22deg) scaleX(1.45);
-}
-
-.event-planet {
-  width: 13rem;
-  height: 13rem;
-  border-radius: 50%;
+  inset: 0;
   background:
-    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.35), transparent 8%),
-    radial-gradient(circle at 45% 45%, #725cff 0%, #271648 50%, #090b19 76%);
-  box-shadow:
-    0 0 3rem rgba(155, 92, 255, 0.5),
-    inset -1.5rem -1.5rem 2rem rgba(0, 0, 0, 0.32);
+    radial-gradient(circle at center, transparent 8%, rgba(4, 6, 16, 0.45)),
+    linear-gradient(
+      to bottom,
+      rgba(4, 6, 16, 0.08),
+      rgba(4, 6, 16, 0.88)
+    );
 }
 
 .event-detail-content {

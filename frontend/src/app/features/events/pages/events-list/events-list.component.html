@@ -66,8 +66,15 @@
         <i class="fa-solid fa-check"></i>
       </span>
 
-      <div class="event-card-visual">
-        <i class="fa-solid fa-meteor"></i>
+      <div
+        class="event-card-visual"
+        [style.background-image]="
+          'url(' +
+          (event.image || 'assets/images/events/default-space.webp') +
+          ')'
+        "
+      >
+        <div class="event-card-overlay"></div>
       </div>
 
       <div class="event-card-content">
@@ -99,7 +106,10 @@
     </article>
   </div>
 
-  <p class="state-message" *ngIf="!isLoading && events.length === 0 && !errorMessage">
+  <p
+    class="state-message"
+    *ngIf="!isLoading && events.length === 0 && !errorMessage"
+  >
     No hay eventos disponibles.
   </p>
 </section>

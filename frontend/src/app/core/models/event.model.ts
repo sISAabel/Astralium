@@ -3,8 +3,8 @@ export interface Event {
   name: string;
   type: string;
   date: string;
-  description?: string;
-  visibility?: string;
-  status?: string;
+  description: string;
+  visibility: string;
   points: number;
+  image?: string;
 }
