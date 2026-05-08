@@ -1,20 +1,34 @@
-<section class="events-page">
-  <section class="events-hero" *ngIf="username">
-    <h1>Hola {{ username }}!</h1>
+<section class="events-page page-shell">
+  <section class="events-hero glass-card">
+    <div class="events-hero-content">
+      <span class="hero-kicker">ASTRALIUM</span>
 
-    <p>¿A qué evento astronómico quieres ir hoy?</p>
+      <h1>
+        Hola {{ username || "explorador/a" }}.
+        <span>Observa el universo.</span>
+      </h1>
+
+      <p>
+        Descubre eventos astronómicos, filtra por tipo y confirma tu asistencia
+        para ganar puntos.
+      </p>
+    </div>
+
+    <div class="hero-orbit">
+      <div class="planet"></div>
+    </div>
   </section>
 
-  <p *ngIf="isLoading">Cargando eventos...</p>
+  <p class="state-message" *ngIf="isLoading">Cargando eventos...</p>
 
-  <p class="error" *ngIf="errorMessage">
+  <p class="state-message error" *ngIf="errorMessage">
     {{ errorMessage }}
   </p>
 
-  <div class="events-filters">
+  <div class="events-filters glass-card">
     <input
       type="text"
-      placeholder="&#xf002; Buscar por nombre..."
+      placeholder="Buscar por nombre..."
       [(ngModel)]="searchTerm"
     />
 
@@ -34,39 +48,68 @@
       <i class="fa-solid fa-trash"></i>
     </button>
   </div>
-  <p *ngIf="!isLoading && filteredEvents.length === 0 && !errorMessage">
+
+  <p
+    class="state-message"
+    *ngIf="!isLoading && filteredEvents.length === 0 && !errorMessage"
+  >
     No hay eventos que coincidan con los filtros.
   </p>
 
   <div class="events-grid" *ngIf="!isLoading && filteredEvents.length > 0">
-    <article class="event-card" *ngFor="let event of filteredEvents">
-      <span class="attended-badge" *ngIf="attendedEventIds.includes(event.id)">
+    <article
+      class="event-card glass-card"
+      [class.attended]="hasAttended(event.id)"
+      *ngFor="let event of filteredEvents"
+    >
+      <span class="attended-badge" *ngIf="hasAttended(event.id)">
         <i class="fa-solid fa-check"></i>
       </span>
-      <h3>{{ event.name }}</h3>
 
-      <p>
-        <strong>Fecha:</strong>
-        {{ event.date | date: "dd MMM yyyy" }}
-      </p>
+      <div
+        class="event-card-visual"
+        [style.background-image]="
+          'url(' +
+          (event.image || 'assets/images/events/default-space.webp') +
+          ')'
+        "
+      >
+        <div class="event-card-overlay"></div>
+      </div>
 
-      <p>
-        <strong>Visibilidad:</strong>
-        {{ event.visibility }}
-      </p>
+      <div class="event-card-content">
+        <span class="badge">{{ event.type }}</span>
 
-      <p>
-        <strong>Puntos:</strong>
-        {{ event.points }}
-      </p>
+        <h3>{{ event.name }}</h3>
 
-      <button class="btn-primary" [routerLink]="['/events', event.id]">
-        Ver detalle
-      </button>
+        <p>
+          <i class="fa-regular fa-calendar"></i>
+          {{ event.date | date: "dd MMM yyyy" }}
+        </p>
+
+        <p>
+          <i class="fa-solid fa-location-dot"></i>
+          {{ event.visibility }}
+        </p>
+      </div>
+
+      <div class="event-card-footer">
+        <span class="points-badge">
+          <i class="fa-solid fa-star"></i>
+          {{ event.points }} pts
+        </span>
+
+        <button class="btn-primary" [routerLink]="['/events', event.id]">
+          Ver detalle
+        </button>
+      </div>
     </article>
   </div>
 
-  <p *ngIf="!isLoading && events.length === 0 && !errorMessage">
+  <p
+    class="state-message"
+    *ngIf="!isLoading && events.length === 0 && !errorMessage"
+  >
     No hay eventos disponibles.
   </p>
 </section>
