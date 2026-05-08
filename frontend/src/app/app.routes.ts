@@ -6,6 +6,7 @@ import { EventsListComponent } from './features/events/pages/events-list/events-
 import { EventDetailComponent } from './features/events/pages/event-detail/event-detail.component';
 import { authGuard } from './core/guards/auth.guard';
 import { WelcomeComponent } from './features/auth/pages/welcome/welcome.component';
+import { AdminDashboardComponent } from './features/admin/pages/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,11 @@ export const routes: Routes = [
   {
     path: 'events/:id',
     component: EventDetailComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'admin',
+    component: AdminDashboardComponent,
     canActivate: [authGuard],
   },
   {

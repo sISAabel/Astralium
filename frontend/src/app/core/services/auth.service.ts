@@ -26,12 +26,12 @@ export class AuthService {
   }
 
   register(username: string, email: string, password: string): Observable<any> {
-  return this.http.post(`${this.apiUrl}/users`, {
-    username,
-    email,
-    password,
-  });
-}
+    return this.http.post(`${this.apiUrl}/users`, {
+      username,
+      email,
+      password,
+    });
+  }
 
   saveToken(token: string): void {
     localStorage.setItem('token', token);
@@ -41,6 +41,7 @@ export class AuthService {
     localStorage.setItem('userId', user.id);
     localStorage.setItem('userPoints', user.points);
     localStorage.setItem('username', user.username);
+    localStorage.setItem('userRole', user.role);
 
     this.userPointsSubject.next(user.points);
   }
@@ -56,6 +57,10 @@ export class AuthService {
 
   logout(): void {
     localStorage.clear();
+  }
+
+  isAdmin(): boolean {
+    return localStorage.getItem('userRole') === 'admin';
   }
 
   isAuthenticated(): boolean {

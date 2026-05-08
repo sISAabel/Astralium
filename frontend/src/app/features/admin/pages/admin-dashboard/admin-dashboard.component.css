@@ -1,0 +1,205 @@
+.admin-page {
+  width: 100%;
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+.admin-header {
+  margin-bottom: var(--space-xl);
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-xs);
+
+  color: var(--color-accent-blue);
+  font-weight: 800;
+  letter-spacing: 0.16rem;
+  text-transform: uppercase;
+}
+
+.admin-header h1 {
+  margin: 0 0 var(--space-sm);
+
+  font-size: 2.5rem;
+  font-weight: 900;
+
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-blue),
+    var(--color-accent-soft),
+    var(--color-accent-purple),
+    var(--color-accent-blue)
+  );
+
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: cosmic-shimmer 4s linear infinite;
+}
+
+.admin-header p {
+  color: var(--color-text-secondary);
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: minmax(20rem, 26rem) 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.admin-form,
+.admin-event-card {
+  border-radius: var(--radius-lg);
+  border: 0.0625rem solid var(--color-border);
+
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.admin-form {
+  padding: var(--space-xl);
+}
+
+.admin-form h2,
+.events-admin-list h2 {
+  margin-top: 0;
+  margin-bottom: var(--space-lg);
+
+  color: var(--color-accent-soft);
+}
+
+.admin-form label {
+  display: block;
+  margin-bottom: var(--space-xs);
+
+  color: var(--color-text-secondary);
+  font-weight: 700;
+}
+
+.admin-form input,
+.admin-form textarea {
+  width: 100%;
+
+  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+
+  border-radius: var(--radius-sm);
+  border: 0.0625rem solid var(--color-border);
+
+  background: var(--color-surface-soft);
+  color: var(--color-text-primary);
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus {
+  outline: none;
+  border-color: var(--color-accent-blue);
+  box-shadow: 0 0 1rem rgba(56, 189, 248, 0.18);
+}
+
+.image-note {
+  margin-top: calc(var(--space-sm) * -1);
+  margin-bottom: var(--space-md);
+
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.form-actions,
+.event-actions {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.form-actions button,
+.event-actions button {
+  padding: var(--space-sm) var(--space-lg);
+
+  border: none;
+  border-radius: var(--radius-sm);
+
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-blue),
+    var(--color-accent-purple)
+  );
+
+  color: var(--color-text-primary);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  background: var(--color-surface-soft) !important;
+  border: 0.0625rem solid var(--color-border) !important;
+  color: var(--color-accent-blue) !important;
+}
+
+.danger-btn {
+  background: rgba(239, 68, 68, 0.18) !important;
+  border: 0.0625rem solid rgba(239, 68, 68, 0.45) !important;
+  color: var(--color-error) !important;
+}
+
+.events-admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.admin-event-card {
+  padding: var(--space-lg);
+
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.admin-event-card h3 {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+
+  color: var(--color-accent-blue);
+}
+
+.admin-event-card p {
+  margin: var(--space-xs) 0;
+  color: var(--color-text-secondary);
+}
+
+.admin-event-card strong {
+  color: var(--color-text-primary);
+}
+
+.success {
+  color: var(--color-success);
+  font-weight: 700;
+}
+
+.error {
+  color: var(--color-error);
+  font-weight: 700;
+}
+
+@keyframes cosmic-shimmer {
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 220% center;
+  }
+}
+
+@media (max-width: 56rem) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-event-card {
+    flex-direction: column;
+  }
+}

@@ -30,12 +30,15 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe({
       next: (response: any) => {
         this.authService.saveToken(response.token);
-        localStorage.setItem('userId', response.user.id);
-        this.authService.setUserPoints(response.user.points);
         this.authService.setUserData(response.user);
 
         this.isLoading = false;
-        this.router.navigate(['/']);
+
+        if (response.user.role === 'admin') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/']);
+        }
       },
 
       error: () => {

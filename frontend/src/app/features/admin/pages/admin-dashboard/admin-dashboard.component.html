@@ -1,0 +1,143 @@
+<section class="admin-page">
+  <header class="admin-header">
+    <p class="eyebrow">Panel de administración</p>
+    <h1>Gestionar eventos</h1>
+    <p>
+      Crea, edita o elimina eventos astronómicos disponibles en Astralium.
+    </p>
+  </header>
+
+  <div class="admin-layout">
+    <form class="admin-form" (ngSubmit)="saveEvent()">
+      <h2>
+        {{ isEditing ? 'Editar evento' : 'Crear nuevo evento' }}
+      </h2>
+
+      <label for="name">Nombre</label>
+      <input
+        id="name"
+        type="text"
+        name="name"
+        [(ngModel)]="eventForm.name"
+        required
+      />
+
+      <label for="type">Tipo</label>
+      <input
+        id="type"
+        type="text"
+        name="type"
+        [(ngModel)]="eventForm.type"
+        required
+      />
+
+      <label for="date">Fecha</label>
+      <input
+        id="date"
+        type="date"
+        name="date"
+        [(ngModel)]="eventForm.date"
+        required
+      />
+
+      <label for="description">Descripción</label>
+      <textarea
+        id="description"
+        name="description"
+        rows="4"
+        [(ngModel)]="eventForm.description"
+      ></textarea>
+
+      <label for="visibility">Visibilidad</label>
+      <input
+        id="visibility"
+        type="text"
+        name="visibility"
+        [(ngModel)]="eventForm.visibility"
+      />
+
+      <label for="status">Estado</label>
+      <input
+        id="status"
+        type="text"
+        name="status"
+        [(ngModel)]="eventForm.status"
+      />
+
+      <label for="points">Puntos</label>
+      <input
+        id="points"
+        type="number"
+        name="points"
+        [(ngModel)]="eventForm.points"
+        min="0"
+      />
+
+      <label for="image">Imagen</label>
+      <input
+        id="image"
+        type="text"
+        name="image"
+        placeholder="ej: eclipse.png"
+        [(ngModel)]="eventForm.image"
+      />
+
+      <p class="image-note">
+        Recuerda subir manualmente la imagen a la carpeta correspondiente.
+      </p>
+
+      <p class="success" *ngIf="successMessage">
+        {{ successMessage }}
+      </p>
+
+      <p class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
+
+      <div class="form-actions">
+        <button type="submit">
+          {{ isEditing ? 'Guardar cambios' : 'Crear evento' }}
+        </button>
+
+        <button
+          type="button"
+          class="secondary-btn"
+          *ngIf="isEditing"
+          (click)="resetForm()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+
+    <section class="events-admin-list">
+      <h2>Eventos existentes</h2>
+
+      <p *ngIf="isLoading">Cargando eventos...</p>
+
+      <article class="admin-event-card" *ngFor="let event of events">
+        <div>
+          <h3>{{ event.name }}</h3>
+          <p><strong>Tipo:</strong> {{ event.type }}</p>
+          <p><strong>Fecha:</strong> {{ event.date | date : 'dd MMM yyyy' }}</p>
+          <p><strong>Puntos:</strong> {{ event.points }}</p>
+          <p><strong>Imagen:</strong> {{ event.image || 'Sin imagen' }}</p>
+        </div>
+
+        <div class="event-actions">
+          <button type="button" (click)="editEvent(event)">
+            Editar
+          </button>
+
+          <button
+            type="button"
+            class="danger-btn"
+            (click)="deleteEvent(event.id)"
+          >
+            Borrar
+          </button>
+        </div>
+      </article>
+    </section>
+  </div>
+</section>
