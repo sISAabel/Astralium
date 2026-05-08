@@ -15,7 +15,6 @@ const router = express.Router();
 router.get('/', authMiddleware, getUsers);
 router.post('/', validateUser, createUser);
 router.post('/login', loginUser);
-router.get('/:id', authMiddleware, getUserById);
 router.get('/me', authMiddleware, (req, res) => {
   const userId = req.user.id;
 
@@ -34,5 +33,6 @@ router.get('/me', authMiddleware, (req, res) => {
     }
   );
 });
+router.get('/:id', authMiddleware, getUserById);
 
 module.exports = router;

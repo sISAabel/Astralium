@@ -1,0 +1,146 @@
+.register-page {
+  min-height: calc(100vh - 8.75rem);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 28rem;
+
+  padding: var(--space-xl);
+
+  border-radius: var(--radius-lg);
+  border: 0.0625rem solid var(--color-border);
+
+  background:
+    radial-gradient(circle at top, rgba(124, 58, 237, 0.22), transparent 45%),
+    var(--color-surface);
+
+  box-shadow:
+    var(--shadow-card),
+    0 0 2rem rgba(56, 189, 248, 0.12);
+}
+
+.register-card h1 {
+  margin: 0 0 var(--space-sm);
+
+  font-size: 2rem;
+  font-weight: 800;
+
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-blue),
+    var(--color-accent-soft),
+    var(--color-accent-purple),
+    var(--color-accent-blue)
+  );
+
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: cosmic-shimmer 4s linear infinite;
+}
+
+.subtitle {
+  margin-top: 0;
+  margin-bottom: var(--space-lg);
+
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.register-card label {
+  display: block;
+  margin-bottom: var(--space-xs);
+
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.register-card input {
+  width: 100%;
+
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+
+  border-radius: var(--radius-sm);
+  border: 0.0625rem solid var(--color-border);
+
+  background: var(--color-surface-soft);
+  color: var(--color-text-primary);
+}
+
+.register-card input:focus {
+  outline: none;
+  border-color: var(--color-accent-blue);
+  box-shadow: 0 0 1rem rgba(56, 189, 248, 0.22);
+}
+
+.register-card button {
+  width: 100%;
+
+  padding: var(--space-md);
+
+  border: none;
+  border-radius: var(--radius-sm);
+
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-blue),
+    var(--color-accent-purple)
+  );
+
+  color: var(--color-text-primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.register-card button:hover {
+  opacity: 0.92;
+}
+
+.register-card button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.success {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.login-link {
+  margin: var(--space-lg) 0 0;
+
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.login-link a {
+  color: var(--color-accent-blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  color: var(--color-accent-soft);
+}
+
+@keyframes cosmic-shimmer {
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 220% center;
+  }
+}
