@@ -14,12 +14,18 @@ Users can create an account, log in, and track their participation in events, wi
 
 ## 🚀 Features
 
+## Features
+
 - 🔭 Browse astronomical events
 - 📅 View detailed event information
 - 👤 User authentication (register & login)
-- 🔐 Protected routes with JWT
-- ⭐ Attend / track events
-- 🎯 Scalable structure for gamification system
+- 🔐 Protected routes with JWT authentication
+- ⭐ Earn points through event participation
+- 🛠️ Admin dashboard for event management
+- ✏️ Create, edit and delete astronomical events
+- 🖼️ Dynamic event image support
+- 🌌 Modern responsive space-themed interface
+- 🚀 Scalable architecture for future gamification features
 
 ---
 
@@ -121,17 +127,22 @@ Authorization: Bearer YOUR_TOKEN
 
 ## 📡 API Endpoints
 
+### Authentication & Users
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | /api/users | Create user |
+| POST | /api/users/login | Login user |
+
 ### Events
-- GET /api/events → Get all events
-- GET /api/events/:id → Get event details
-- POST /api/events → Create event
 
-### Users
-- POST /api/users/register → Register
-- POST /api/users/login → Login
-
-### Attendance
-- POST /api/events/attend → Attend event
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | /api/events | Get all events |
+| GET | /api/events/:id | Get single event |
+| POST | /api/events | Create event |
+| PUT | /api/events/:id | Update event |
+| DELETE | /api/events/:id | Delete event |
 
 ---
 
@@ -142,13 +153,23 @@ Authorization: Bearer YOUR_TOKEN
 
 ---
 
+## 🛠️ Admin Dashboard
+
+Astralium includes a complete administrator panel that allows authorized users to manage astronomical events through a modern space-inspired interface.
+
+---
+
 ## 🧩 Future Improvements
 
-- 📍 Location-based visibility system to determine if events are observable from the user's area
-- 🏆 Points and rewards system for attending and logging astronomical events
-- 🔎 Advanced filters by event type, date, and visibility
-- 🌐 Integration with external astronomy APIs
-- 🗓️ Personal event tracking and observation history
+## Future Improvements
+
+- 🤖 Astronomical AI assistant integration
+- ❤️ Favorite events system
+- 🗓️ Interactive astronomy calendar
+- 🔔 Notifications for upcoming events
+- 📤 Image upload support from the admin dashboard
+- 📊 Analytics dashboard for users and events
+- 🏆 Achievement and rewards system
 
 ---
 
