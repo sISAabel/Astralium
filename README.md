@@ -71,7 +71,7 @@ astralium/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/astralium.git
+git clone https://github.com/sISAabel/Astralium.git
 cd astralium
 ```
 
