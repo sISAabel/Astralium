@@ -1,5 +1,6 @@
 <section class="login-page">
   <form class="login-card" (ngSubmit)="login()">
+    <a routerLink="/welcome" class="back-link"> ← Volver </a>
     <h2>Iniciar sesión</h2>
 
     <label for="email">Email</label>
@@ -19,5 +20,10 @@
     <button type="submit" [disabled]="isLoading">
       {{ isLoading ? "Entrando..." : "Entrar" }}
     </button>
+
+    <p class="auth-redirect">
+      ¿No tienes cuenta?
+      <a routerLink="/register">Regístrate aquí</a>
+    </p>
   </form>
 </section>

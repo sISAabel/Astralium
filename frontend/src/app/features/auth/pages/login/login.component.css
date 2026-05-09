@@ -74,3 +74,31 @@
   color: var(--color-error);
   margin-bottom: var(--space-md);
 }
+
+.auth-redirect {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.auth-redirect a {
+  color: var(--color-accent-blue);
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.auth-redirect a:hover {
+  opacity: 0.8;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--color-accent-blue);
+}
