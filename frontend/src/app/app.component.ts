@@ -13,7 +13,7 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 export class AppComponent {
   constructor(private router: Router) {}
 
-  isWelcomePage(): boolean {
-    return this.router.url === '/welcome';
+  isPublicPage(): boolean {
+    return ['/welcome', '/login', '/register'].includes(this.router.url);
   }
 }

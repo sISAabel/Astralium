@@ -1,143 +1,342 @@
 <section class="admin-page">
-  <header class="admin-header">
-    <p class="eyebrow">Panel de administración</p>
-    <h1>Gestionar eventos</h1>
-    <p>
-      Crea, edita o elimina eventos astronómicos disponibles en Astralium.
-    </p>
+  <header class="admin-hero">
+    <div class="admin-hero-content">
+      <p class="eyebrow">Astralium Admin</p>
+
+      <h1>Hola admin.</h1>
+
+      <p>
+        Gestiona los eventos astronómicos de la plataforma desde un panel simple,
+        visual y directo.
+      </p>
+    </div>
   </header>
 
-  <div class="admin-layout">
-    <form class="admin-form" (ngSubmit)="saveEvent()">
-      <h2>
-        {{ isEditing ? 'Editar evento' : 'Crear nuevo evento' }}
-      </h2>
+  <section class="admin-panel">
+    <div class="admin-switch">
+      <button
+        type="button"
+        [class.active]="activeTab === 'create'"
+        (click)="setActiveTab('create')"
+      >
+        Crear evento
+      </button>
 
-      <label for="name">Nombre</label>
-      <input
-        id="name"
-        type="text"
-        name="name"
-        [(ngModel)]="eventForm.name"
-        required
-      />
+      <button
+        type="button"
+        [class.active]="activeTab === 'manage'"
+        (click)="setActiveTab('manage')"
+      >
+        Editar / eliminar
+      </button>
+    </div>
 
-      <label for="type">Tipo</label>
-      <input
-        id="type"
-        type="text"
-        name="type"
-        [(ngModel)]="eventForm.type"
-        required
-      />
+    <p class="alert alert-success" *ngIf="successMessage">
+      <i class="fa-solid fa-circle-check"></i>
+      {{ successMessage }}
+    </p>
 
-      <label for="date">Fecha</label>
-      <input
-        id="date"
-        type="date"
-        name="date"
-        [(ngModel)]="eventForm.date"
-        required
-      />
+    <p class="alert alert-error" *ngIf="errorMessage">
+      <i class="fa-solid fa-circle-xmark"></i>
+      {{ errorMessage }}
+    </p>
 
-      <label for="description">Descripción</label>
-      <textarea
-        id="description"
-        name="description"
-        rows="4"
-        [(ngModel)]="eventForm.description"
-      ></textarea>
+    <form
+      class="admin-form"
+      *ngIf="activeTab === 'create'"
+      (ngSubmit)="createEvent()"
+    >
+      <h2>Crear nuevo evento</h2>
 
-      <label for="visibility">Visibilidad</label>
-      <input
-        id="visibility"
-        type="text"
-        name="visibility"
-        [(ngModel)]="eventForm.visibility"
-      />
+      <div class="form-grid">
+        <div class="field">
+          <label for="create-name">Nombre</label>
+          <input
+            id="create-name"
+            type="text"
+            name="createName"
+            [(ngModel)]="createForm.name"
+            required
+          />
+        </div>
 
-      <label for="status">Estado</label>
-      <input
-        id="status"
-        type="text"
-        name="status"
-        [(ngModel)]="eventForm.status"
-      />
+        <div class="field">
+          <label for="create-type">Tipo</label>
+          <input
+            id="create-type"
+            type="text"
+            name="createType"
+            [(ngModel)]="createForm.type"
+            required
+          />
+        </div>
 
-      <label for="points">Puntos</label>
-      <input
-        id="points"
-        type="number"
-        name="points"
-        [(ngModel)]="eventForm.points"
-        min="0"
-      />
+        <div class="field">
+          <label for="create-date">Fecha</label>
+          <input
+            id="create-date"
+            type="date"
+            name="createDate"
+            [(ngModel)]="createForm.date"
+            required
+          />
+        </div>
 
-      <label for="image">Imagen</label>
-      <input
-        id="image"
-        type="text"
-        name="image"
-        placeholder="ej: eclipse.png"
-        [(ngModel)]="eventForm.image"
-      />
+        <div class="field">
+          <label for="create-status">Estado</label>
+          <input
+            id="create-status"
+            type="text"
+            name="createStatus"
+            [(ngModel)]="createForm.status"
+          />
+        </div>
 
-      <p class="image-note">
-        Recuerda subir manualmente la imagen a la carpeta correspondiente.
-      </p>
+        <div class="field">
+          <label for="create-points">Puntos</label>
+          <input
+            id="create-points"
+            type="number"
+            name="createPoints"
+            [(ngModel)]="createForm.points"
+            min="0"
+          />
+        </div>
 
-      <p class="success" *ngIf="successMessage">
-        {{ successMessage }}
-      </p>
+        <div class="field">
+          <label for="create-image">Imagen</label>
+          <input
+            id="create-image"
+            type="text"
+            name="createImage"
+            placeholder="assets/images/eclipse.png"
+            [(ngModel)]="createForm.image"
+          />
+        </div>
+      </div>
 
-      <p class="error" *ngIf="errorMessage">
-        {{ errorMessage }}
-      </p>
+      <div class="field">
+        <label for="create-visibility">Visibilidad</label>
+        <input
+          id="create-visibility"
+          type="text"
+          name="createVisibility"
+          [(ngModel)]="createForm.visibility"
+        />
+      </div>
 
-      <div class="form-actions">
-        <button type="submit">
-          {{ isEditing ? 'Guardar cambios' : 'Crear evento' }}
+      <div class="field">
+        <label for="create-description">Descripción</label>
+        <textarea
+          id="create-description"
+          name="createDescription"
+          rows="4"
+          [(ngModel)]="createForm.description"
+        ></textarea>
+      </div>
+
+      <div class="warning-message">
+        Recuerda subir manualmente la imagen a la carpeta correspondiente antes
+        de crear el evento.<br />
+        Debes escribir la ruta completa en el campo imagen.
+      </div>
+
+      <button class="primary-btn" type="submit" [disabled]="isSaving">
+        {{ isSaving ? 'Creando evento...' : 'Crear evento' }}
+      </button>
+    </form>
+
+    <section class="manage-section" *ngIf="activeTab === 'manage'">
+      <h2>Eventos existentes</h2>
+
+      <p *ngIf="isLoading">Cargando eventos...</p>
+
+      <div class="admin-events-grid">
+        <article class="admin-event-card" *ngFor="let event of events">
+          <div class="event-image" *ngIf="event.image">
+            <img [src]="event.image" [alt]="event.name" />
+          </div>
+
+          <div class="event-info">
+            <h3>{{ event.name }}</h3>
+
+            <p><strong>Tipo:</strong> {{ event.type }}</p>
+            <p><strong>Fecha:</strong> {{ event.date | date : 'dd MMM yyyy' }}</p>
+            <p><strong>Puntos:</strong> {{ event.points }}</p>
+            <p><strong>Imagen:</strong> {{ event.image || 'Sin imagen' }}</p>
+          </div>
+
+          <div class="event-actions">
+            <button type="button" (click)="openEditModal(event)">
+              Editar
+            </button>
+
+            <button
+              type="button"
+              class="danger-btn"
+              (click)="openDeleteModal(event.id)"
+            >
+              Borrar
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </section>
+</section>
+
+<div class="modal-backdrop" *ngIf="showEditModal">
+  <section class="edit-modal">
+    <button
+      class="close-modal-btn"
+      type="button"
+      aria-label="Cerrar modal"
+      (click)="closeEditModal()"
+    >
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <h2>Editar evento</h2>
+
+    <form (ngSubmit)="updateEvent()">
+      <div class="form-grid">
+        <div class="field">
+          <label for="edit-name">Nombre</label>
+          <input
+            id="edit-name"
+            type="text"
+            name="editName"
+            [(ngModel)]="editForm.name"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="edit-type">Tipo</label>
+          <input
+            id="edit-type"
+            type="text"
+            name="editType"
+            [(ngModel)]="editForm.type"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="edit-date">Fecha</label>
+          <input
+            id="edit-date"
+            type="date"
+            name="editDate"
+            [(ngModel)]="editForm.date"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="edit-status">Estado</label>
+          <input
+            id="edit-status"
+            type="text"
+            name="editStatus"
+            [(ngModel)]="editForm.status"
+          />
+        </div>
+
+        <div class="field">
+          <label for="edit-points">Puntos</label>
+          <input
+            id="edit-points"
+            type="number"
+            name="editPoints"
+            [(ngModel)]="editForm.points"
+            min="0"
+          />
+        </div>
+
+        <div class="field">
+          <label for="edit-image">Imagen</label>
+          <input
+            id="edit-image"
+            type="text"
+            name="editImage"
+            placeholder="assets/images/eclipse.png"
+            [(ngModel)]="editForm.image"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="edit-visibility">Visibilidad</label>
+        <input
+          id="edit-visibility"
+          type="text"
+          name="editVisibility"
+          [(ngModel)]="editForm.visibility"
+        />
+      </div>
+
+      <div class="field">
+        <label for="edit-description">Descripción</label>
+        <textarea
+          id="edit-description"
+          name="editDescription"
+          rows="4"
+          [(ngModel)]="editForm.description"
+        ></textarea>
+      </div>
+
+      <div class="warning-message">
+        Recuerda subir manualmente la imagen a la carpeta correspondiente antes
+        de guardar cambios.<br />
+        Debes escribir la ruta completa en el campo imagen.
+      </div>
+
+      <div class="modal-actions">
+        <button class="primary-btn" type="submit" [disabled]="isSaving">
+          {{ isSaving ? 'Guardando...' : 'Guardar cambios' }}
         </button>
 
         <button
-          type="button"
           class="secondary-btn"
-          *ngIf="isEditing"
-          (click)="resetForm()"
+          type="button"
+          (click)="closeEditModal()"
         >
           Cancelar
         </button>
       </div>
     </form>
+  </section>
+</div>
 
-    <section class="events-admin-list">
-      <h2>Eventos existentes</h2>
+<div class="modal-backdrop" *ngIf="showDeleteModal">
+  <section class="delete-modal">
+    <div class="delete-icon">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
 
-      <p *ngIf="isLoading">Cargando eventos...</p>
+    <h2>¿Eliminar evento?</h2>
 
-      <article class="admin-event-card" *ngFor="let event of events">
-        <div>
-          <h3>{{ event.name }}</h3>
-          <p><strong>Tipo:</strong> {{ event.type }}</p>
-          <p><strong>Fecha:</strong> {{ event.date | date : 'dd MMM yyyy' }}</p>
-          <p><strong>Puntos:</strong> {{ event.points }}</p>
-          <p><strong>Imagen:</strong> {{ event.image || 'Sin imagen' }}</p>
-        </div>
+    <p>
+      Esta acción no se puede deshacer. El evento se eliminará de Astralium.
+    </p>
 
-        <div class="event-actions">
-          <button type="button" (click)="editEvent(event)">
-            Editar
-          </button>
+    <div class="modal-actions">
+      <button
+        type="button"
+        class="danger-confirm-btn"
+        (click)="confirmDeleteEvent()"
+      >
+        Sí, eliminar
+      </button>
 
-          <button
-            type="button"
-            class="danger-btn"
-            (click)="deleteEvent(event.id)"
-          >
-            Borrar
-          </button>
-        </div>
-      </article>
-    </section>
-  </div>
-</section>
+      <button
+        type="button"
+        class="secondary-btn"
+        (click)="closeDeleteModal()"
+      >
+        Cancelar
+      </button>
+    </div>
+  </section>
+</div>

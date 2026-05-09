@@ -39,16 +39,43 @@ const getEventById = (req, res) => {
 };
 
 const createEvent = (req, res) => {
-  const { name, type, date, visibility, status, points } = req.body;
+  const {
+    name,
+    type,
+    date,
+    description,
+    visibility,
+    status,
+    points,
+    image
+  } = req.body;
 
   const query = `
-    INSERT INTO events (name, type, date, visibility, status, points)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO events (
+      name,
+      type,
+      date,
+      description,
+      visibility,
+      status,
+      points,
+      image
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   db.query(
     query,
-    [name, type, date, visibility || '', status || 'new', points || 0],
+    [
+      name,
+      type,
+      date,
+      description || '',
+      visibility || '',
+      status || 'new',
+      points || 0,
+      image || ''
+    ],
     (error, result) => {
       if (error) {
         return res.status(500).json({
@@ -62,39 +89,62 @@ const createEvent = (req, res) => {
         name,
         type,
         date,
+        description,
         visibility,
-        status: status || 'new',
-        points: points || 0
+        status,
+        points,
+        image
       });
     }
   );
 };
 
 const updateEvent = (req, res) => {
-  const eventId = req.params.id;
+  const { id } = req.params;
 
-  const { name, type, date, description, points } = req.body;
+  const {
+    name,
+    type,
+    date,
+    description,
+    visibility,
+    status,
+    points,
+    image
+  } = req.body;
 
   const query = `
     UPDATE events
-    SET name = ?, type = ?, date = ?, description = ?, points = ?
+    SET
+      name = ?,
+      type = ?,
+      date = ?,
+      description = ?,
+      visibility = ?,
+      status = ?,
+      points = ?,
+      image = ?
     WHERE id = ?
   `;
 
   db.query(
     query,
-    [name, type, date, description, points, eventId],
-    (error, result) => {
+    [
+      name,
+      type,
+      date,
+      description || '',
+      visibility || '',
+      status || 'new',
+      points || 0,
+      image || '',
+      id
+    ],
+    (error) => {
       if (error) {
         return res.status(500).json({
           message: 'Error actualizando evento',
           error
-        });
-      }
-
-      if (result.affectedRows === 0) {
-        return res.status(404).json({
-          message: 'Evento no encontrado'
         });
       }
 
