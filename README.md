@@ -14,8 +14,6 @@ Users can create an account, log in, and track their participation in events, wi
 
 ## 🚀 Features
 
-## Features
-
 - 🔭 Browse astronomical events
 - 📅 View detailed event information
 - 👤 User authentication (register & login)
@@ -160,8 +158,6 @@ Astralium includes a complete administrator panel that allows authorized users t
 ---
 
 ## 🧩 Future Improvements
-
-## Future Improvements
 
 - 🤖 Astronomical AI assistant integration
 - ❤️ Favorite events system
